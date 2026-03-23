@@ -141,4 +141,46 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    /* --- 6. Custom Scrollytelling Cursor --- */
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+    
+    if (cursorDot && cursorOutline && window.matchMedia("(pointer: fine)").matches) {
+        let mouseX = 0, mouseY = 0;
+        let outlineX = 0, outlineY = 0;
+        
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+        
+        const animateCursor = () => {
+            let distX = mouseX - outlineX;
+            let distY = mouseY - outlineY;
+            
+            outlineX += distX * 0.15;
+            outlineY += distY * 0.15;
+            
+            cursorOutline.style.left = `${outlineX}px`;
+            cursorOutline.style.top = `${outlineY}px`;
+            
+            requestAnimationFrame(animateCursor);
+        };
+        animateCursor();
+        
+        document.querySelectorAll('a, button, input, textarea, .menu-toggle, .stat-card, .project-card, .dive-card, .case-study-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorOutline.classList.add('hover-state');
+                cursorDot.classList.add('hover-state');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursorOutline.classList.remove('hover-state');
+                cursorDot.classList.remove('hover-state');
+            });
+        });
+    }
+
 });
