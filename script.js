@@ -4,6 +4,8 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+    setTimeout(() => document.body.classList.add('loaded'), 100);
+
     /* --- 1. Navigation Scroll Effect --- */
     const navbar = document.getElementById('navbar');
     
@@ -44,56 +46,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --- 3. Scroll Storytelling (Intersection Observer) --- */
-    const revealElements = document.querySelectorAll('.reveal');
-    let hasCounted = false; // Flag to ensure counters run only once
+    /* --- 3. True Scrollytelling Engine (Parallax & Continual Interpolation) --- */
+    const heroSection = document.getElementById('hero');
+    const heroText = document.querySelector('.hero-text');
+    const heroImage = document.querySelector('.image-wrapper img');
+    const scrollRevealElements = document.querySelectorAll('.reveal');
+    let isTicking = false;
+    let hasCounted = false;
 
-    const revealOptions = {
-        threshold: 0.15, // Trigger when 15% of the element is visible
-        rootMargin: "0px 0px -50px 0px"
-    };
+    window.addEventListener('scroll', () => {
+        if (!isTicking) {
+            requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                const wHeight = window.innerHeight;
 
-    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                return;
-            } else {
-                // Add active class to fade in/slide up
-                entry.target.classList.add('active');
-                
-                // If the section is the achievements section, trigger counter
-                if (entry.target.classList.contains('achievements-section') && !hasCounted) {
-                    startCounters();
-                    hasCounted = true;
+                // Sync global scroll variable for CSS parallax
+                document.body.style.setProperty('--scroll', `${scrollY}px`);
+
+                // A. Hero Parallax & Scroll-tied Fade
+                if (heroSection) {
+                    const heroHeight = heroSection.offsetHeight;
+                    if (scrollY <= heroHeight) {
+                        const heroProgress = scrollY / heroHeight;
+                        
+                        if (heroText) {
+                            heroText.style.opacity = Math.max(0, 1 - (heroProgress * 1.8));
+                            heroText.style.transform = `translateY(${heroProgress * 120}px)`;
+                        }
+                        if (heroImage) {
+                            heroImage.style.transform = `translateY(${heroProgress * 60}px) scale(${1 - heroProgress * 0.05})`;
+                        }
+                    }
                 }
 
-                // Unobserve after revealing to prevent repeating animation unnecessarily
-                observer.unobserve(entry.target);
-            }
-        });
-    }, revealOptions);
+                // B. Continuous Scroll Reveals for all other elements
+                scrollRevealElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    const triggerPoint = wHeight * 0.95; // Animation begins when element hits bottom 5%
+                    
+                    if (rect.top < triggerPoint) {
+                        const distancePast = triggerPoint - rect.top;
+                        const fadeDistance = 250; // Distance of scroll over which it fully reveals
+                        let progress = Math.min(distancePast / fadeDistance, 1);
+                        progress = Math.max(progress, 0); // Clamp
+                        
+                        el.style.opacity = progress;
+                        el.style.transform = `translateY(${(1 - progress) * 50}px)`;
+                    } else {
+                        el.style.opacity = 0;
+                        el.style.transform = `translateY(50px)`;
+                    }
+                });
 
-    revealElements.forEach(el => {
-        revealOnScroll.observe(el);
+                isTicking = false;
+            });
+            isTicking = true;
+        }
     });
 
-    /* --- 4. Counter Animation for Achievements --- */
+    /* --- 4. Counter Animation Observer Logic --- */
     const counters = document.querySelectorAll('.counter');
-    const speed = 200; // The lower the slower
+    const speed = 200;
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting && !hasCounted) {
+            startCounters();
+            hasCounted = true;
+        }
+    }, { threshold: 0.2 });
+
+    const achievementsSection = document.getElementById('achievements');
+    if (achievementsSection) counterObserver.observe(achievementsSection);
 
     function startCounters() {
         counters.forEach(counter => {
             const updateCount = () => {
                 const target = +counter.getAttribute('data-target');
                 const count = +counter.innerText;
-
-                // Lower inc to slow and higher to fast
                 const inc = target / speed;
 
                 if (count < target) {
-                    // Add inc to count and output in counter
                     counter.innerText = Math.ceil(count + inc);
-                    // Call function every ms
                     setTimeout(updateCount, 20);
                 } else {
                     counter.innerText = target;

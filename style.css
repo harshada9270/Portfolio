@@ -60,7 +60,7 @@ body::before, body::after {
     z-index: -1;
     pointer-events: none;
     opacity: 0.5;
-    transition: transform 0.5s ease-out; /* Prepared for JS parallax if needed */
+    will-change: transform;
 }
 
 body::before {
@@ -69,6 +69,7 @@ body::before {
     width: 60vw;
     height: 60vw;
     background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+    transform: translateY(calc(var(--scroll, 0px) * 0.15));
 }
 
 body::after {
@@ -77,6 +78,7 @@ body::after {
     width: 50vw;
     height: 50vw;
     background: radial-gradient(circle, var(--accent-secondary) 0%, transparent 70%);
+    transform: translateY(calc(var(--scroll, 0px) * -0.1));
 }
 
 a {
@@ -743,32 +745,28 @@ footer {
     box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4);
 }
 
-/* Premium Scroll Animations - Scrollytelling Natural Easing */
+/* Premium Scroll Animations - Scrollytelling Natural Interpolation */
 .reveal {
     opacity: 0;
-    transform: translateY(35px);
-    transition: all 1.4s ease-in-out;
+    transform: translateY(50px);
+    will-change: opacity, transform;
 }
 
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Hero Staggered Typography Effects */
+/* Hero Staggered Load Effects */
 .hero-text .subtitle, 
 .hero-text .glitch, 
 .hero-text .hero-desc, 
 .hero-text .hero-cta {
     opacity: 0;
     transform: translateY(20px);
-    transition: all 1.4s ease-in-out;
+    transition: opacity 1.4s ease-in-out, transform 1.4s ease-in-out;
+    will-change: opacity, transform;
 }
 
-.hero-section.active .subtitle { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
-.hero-section.active .glitch { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
-.hero-section.active .hero-desc { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
-.hero-section.active .hero-cta { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
+body.loaded .hero-text .subtitle { opacity: 1; transform: translateY(0); transition-delay: 0.1s; }
+body.loaded .hero-text .glitch { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
+body.loaded .hero-text .hero-desc { opacity: 1; transform: translateY(0); transition-delay: 0.5s; }
+body.loaded .hero-text .hero-cta { opacity: 1; transform: translateY(0); transition-delay: 0.7s; }
 
 /* Custom Cursor (Minimal dot with soft trailing outline) */
 @media (pointer: fine) {
