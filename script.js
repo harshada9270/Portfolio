@@ -20,12 +20,13 @@ document.addEventListener('DOMContentLoaded', () => {
             navbar.classList.remove('scrolled');
         }
         
-        // Hide/Show logic for cinematic feel
+        // Hide on scroll down, show on scroll up
         if (currentScrollY > lastScrollY && currentScrollY > 100) {
             navbar.classList.add('nav-hidden');
         } else {
             navbar.classList.remove('nav-hidden');
         }
+        
         lastScrollY = currentScrollY;
     });
 
@@ -58,23 +59,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --- 3. Cinematic Scrollytelling Engine --- */
-    const heroContainer = document.getElementById('hero-container');
-    const heroText = document.querySelector('.hero-text');
-    const heroImage = document.querySelector('.image-wrapper img');
-    const heroBgGradient = document.getElementById('hero-bg-gradient');
-    let isTicking = false;
-    let hasCounted = false;
-
-    // Intersection Observer for Details (Blur-to-Sharp & Stagger)
+    /* --- 3. Intersection Observer for Fade-Ins --- */
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-            } else {
-                const currentScroll = window.scrollY;
-                if (currentScroll > entry.boundingClientRect.top) {
-                    entry.target.classList.remove('visible');
+                
+                // Trigger counters safely
+                if (entry.target.querySelector('.counter') && !hasCounted) {
+                    startCounters();
+                    hasCounted = true;
                 }
             }
         });
@@ -87,157 +81,15 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
-    document.querySelectorAll('.reveal, .reveal-item, .blur-reveal').forEach(el => {
+    document.querySelectorAll('.reveal, .reveal-item').forEach(el => {
         revealObserver.observe(el);
     });
-
-    // Main Scroll Timeline Loop
-    window.addEventListener('scroll', () => {
-        if (!isTicking) {
-            requestAnimationFrame(() => {
-                const scrollY = window.scrollY;
-                const wHeight = window.innerHeight;
-
-                document.body.style.setProperty('--scroll', `${scrollY}px`);
-
-                // A. Hero Pinned Progression (300vh height = 3 multipliers)
-                if (heroContainer) {
-                    const heroScroll = window.scrollY;
-                    if (heroScroll <= wHeight * 3) {
-                        const heroProgress = heroScroll / (wHeight * 2); // Normalize 0 to 1 over first 200vh
-                        const clampedProgress = Math.min(Math.max(heroProgress, 0), 1);
-                        
-                        if (heroText) {
-                            heroText.style.opacity = 1 - clampedProgress;
-                            heroText.style.transform = `translateY(${clampedProgress * -100}px)`; // move upward
-                            heroText.style.filter = `blur(${clampedProgress * 20}px)`;
-                        }
-                        if (heroImage) {
-                            heroImage.style.transform = `translateY(${clampedProgress * -150}px) scale(${1 - (clampedProgress * 0.2)})`; // Scale down to 0.8
-                        }
-                        if (heroBgGradient) {
-                            heroBgGradient.style.transform = `translateY(${clampedProgress * 200}px) scale(${1 + clampedProgress * 0.5})`;
-                            heroBgGradient.style.opacity = 1 - (clampedProgress * 0.8);
-                        }
-                    }
-                }
-
-                // B. Skills Pinned Progression
-                const skillsContainer = document.getElementById('skills-container');
-                if (skillsContainer) {
-                    const rect = skillsContainer.getBoundingClientRect();
-                    const scrollable = skillsContainer.offsetHeight - wHeight;
-                    const scrolled = -rect.top;
-                    
-                    if (scrolled >= -wHeight && scrolled <= scrollable + wHeight) {
-                        const progress = Math.min(Math.max(scrolled / scrollable, 0), 1);
-                        
-                        const step1 = document.getElementById('skill-step-1');
-                        const step2 = document.getElementById('skill-step-2');
-                        const step3 = document.getElementById('skill-step-3');
-                        
-                        if (step1 && step2 && step3) {
-                            if (progress < 0.33) {
-                                step1.style.opacity = 1; step1.style.transform = 'translateY(0)';
-                                step2.style.opacity = 0; step2.style.transform = 'translateY(50px)';
-                                step3.style.opacity = 0; step3.style.transform = 'translateY(50px)';
-                            } else if (progress >= 0.33 && progress < 0.66) {
-                                step1.style.opacity = 0; step1.style.transform = 'translateY(-50px)';
-                                step2.style.opacity = 1; step2.style.transform = 'translateY(0)';
-                                step3.style.opacity = 0; step3.style.transform = 'translateY(50px)';
-                            } else {
-                                step1.style.opacity = 0; step1.style.transform = 'translateY(-50px)';
-                                step2.style.opacity = 0; step2.style.transform = 'translateY(-50px)';
-                                step3.style.opacity = 1; step3.style.transform = 'translateY(0)';
-                            }
-                        }
-                    }
-                }
-
-                // C. Sat-LM 7-Step Cinematic Pinned Progression
-                const satContainer = document.getElementById('sat-container');
-                if (satContainer) {
-                    const rect = satContainer.getBoundingClientRect();
-                    const scrollable = satContainer.offsetHeight - wHeight;
-                    const scrolled = -rect.top;
-                    
-                    if (scrolled >= -wHeight && scrolled <= scrollable + wHeight) {
-                        const p = Math.min(Math.max(scrolled / scrollable, 0), 1);
-                        
-                        const s1 = document.getElementById('sat-step-1');
-                        const img = document.getElementById('sat-image');
-                        const s3 = document.getElementById('sat-step-3');
-                        const s4 = document.getElementById('sat-step-4');
-                        const s5 = document.getElementById('sat-step-5');
-                        const s6 = document.getElementById('sat-step-6');
-                        const s7 = document.getElementById('sat-step-7');
-
-                        // Step 1: Title (Starts early)
-                        if (s1) {
-                            if (p > 0.02) { s1.style.opacity = 1; s1.style.transform = 'translateY(0)'; }
-                            else { s1.style.opacity = 0; s1.style.transform = 'translateY(30px)'; }
-                        }
-
-                        // Step 2: Image
-                        if (img) {
-                            if (p > 0.1) { img.style.opacity = 1; img.style.transform = 'scale(1) translateY(0)'; img.style.filter = 'blur(0)'; }
-                            else { img.style.opacity = 0; img.style.transform = 'scale(0.9) translateY(40px)'; img.style.filter = 'blur(5px)'; }
-                        }
-
-                        // Steps 3-7: Replacing Text sequence
-                        const updateStep = (el, active) => {
-                            if (!el) return;
-                            if (active) {
-                                el.style.opacity = 1; el.style.transform = 'translateY(0)'; el.style.pointerEvents = 'auto';
-                            } else {
-                                el.style.opacity = 0; el.style.transform = 'translateY(30px)'; el.style.pointerEvents = 'none';
-                            }
-                        };
-
-                        if (p > 0.2 && p < 0.35) {
-                            updateStep(s3, true); updateStep(s4, false); updateStep(s5, false); updateStep(s6, false); updateStep(s7, false);
-                        } else if (p >= 0.35 && p < 0.5) {
-                            updateStep(s3, false); updateStep(s4, true); updateStep(s5, false); updateStep(s6, false); updateStep(s7, false);
-                        } else if (p >= 0.5 && p < 0.65) {
-                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, true); updateStep(s6, false); updateStep(s7, false);
-                        } else if (p >= 0.65 && p < 0.8) {
-                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, false); updateStep(s6, true); updateStep(s7, false);
-                        } else if (p >= 0.8) {
-                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, false); updateStep(s6, false); updateStep(s7, true);
-                        } else {
-                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, false); updateStep(s6, false); updateStep(s7, false);
-                        }
-                    }
-                }
-
-                isTicking = false;
-            });
-            isTicking = true;
-        }
-    });
-
-    // --- Image Hover Tilt Logic --- 
-    const tiltImgWrap = document.querySelector('.hero-img-wrap');
-    if (tiltImgWrap && window.matchMedia("(pointer: fine)").matches) {
-        tiltImgWrap.addEventListener('mousemove', (e) => {
-            const rect = tiltImgWrap.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const xPos = (x / rect.width - 0.5) * 15; // -7.5 to 7.5 deg
-            const yPos = (y / rect.height - 0.5) * -15;
-            // Retain the scrollytelling transform on the child image so they don't fight
-            tiltImgWrap.querySelector('.tilt-img').style.transform = `rotateY(${xPos}deg) rotateX(${yPos}deg) scale(1.05)`;
-        });
-        tiltImgWrap.addEventListener('mouseleave', () => {
-            tiltImgWrap.querySelector('.tilt-img').style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
-        });
-        // smooth reset transition
-        tiltImgWrap.querySelector('.tilt-img').style.transition = 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)';
-    }
 
     /* --- 4. Counter Animation Observer Logic --- */
 
     function startCounters() {
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200;
         counters.forEach(counter => {
             const updateCount = () => {
                 const target = +counter.getAttribute('data-target');

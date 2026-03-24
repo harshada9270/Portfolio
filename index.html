@@ -36,264 +36,176 @@
 
     <main class="story-container">
         
-        <!-- 1. Hero Section Cinematic -->
-        <div class="pinned-container" id="hero-container" style="height: 300vh;">
-            <section id="hero" class="section hero-section sticky-element" style="overflow: hidden;">
-                <!-- Cinematic Background Shift -->
-                <div id="hero-bg-gradient" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(56, 189, 248, 0.15), transparent 70%); z-index: 0; will-change: transform, opacity;"></div>
-                
-                <div class="container hero-content" style="position: relative; z-index: 1;">
-                    <div class="hero-text" id="hero-text-block">
-                        <div class="line-wrapper"><p class="subtitle blur-reveal" style="transition-delay: 0.1s;">Hi, I'm Harshada</p></div>
-                        <div class="line-wrapper"><h1 class="glitch blur-reveal" data-text="Full-Stack Developer" style="transition-delay: 0.3s; padding-bottom: 15px;">Full-Stack Developer</h1></div>
-                        <div class="line-wrapper"><p class="hero-desc blur-reveal" style="transition-delay: 0.5s;">building scalable and modern web applications.</p></div>
-                        <div class="hero-cta blur-reveal" style="transition-delay: 0.7s;">
-                            <a href="#who-i-am" class="btn-primary">Explore My Journey</a>
-                            <a href="Resume.pdf" download="Harshada_Kakade_Resume.pdf" class="btn-secondary">Download Resume <i class="fas fa-download" style="margin-left: 8px;"></i></a>
-                        </div>
-                    </div>
-                    <div class="hero-image" id="hero-image-block">
-                        <div class="image-wrapper hero-img-wrap" style="transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1); perspective: 1000px;">
-                            <img src="photo-removebg-preview.png" alt="Developer Portrait" class="tilt-img" style="transform-style: preserve-3d; will-change: transform;">
-                            <div class="backdrop-glow" style="background: radial-gradient(circle, var(--accent) 0%, transparent 70%);"></div>
-                        </div>
+        <!-- 1. Hero Section -->
+        <section id="hero" class="section hero-section">
+            <div class="container hero-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
+                <div class="hero-text" style="z-index: 2;">
+                    <p class="subtitle reveal-item">Hi, I'm Harshada</p>
+                    <h1 class="reveal-item" style="font-size: clamp(3rem, 6vw, 5rem); color: var(--text-main); font-weight: 700; margin-bottom: 20px;">Full-Stack Developer</h1>
+                    <p class="hero-desc reveal-item" style="color: var(--text-muted); font-size: 1.3rem; margin-bottom: 30px;">building scalable and modern web applications.</p>
+                    <div class="hero-cta reveal-item">
+                        <a href="#who-i-am" class="btn-primary">Explore My Journey</a>
+                        <a href="Resume.pdf" download="Harshada_Kakade_Resume.pdf" class="btn-secondary">Download Resume <i class="fas fa-download" style="margin-left: 8px;"></i></a>
                     </div>
                 </div>
-            </section>
-        </div>
+                <div class="hero-image reveal-item" style="display: flex; justify-content: center; position: relative; z-index: 1;">
+                    <div class="image-wrapper hero-img-wrap" style="position: relative;">
+                        <!-- Subtle background glow -->
+                        <div class="backdrop-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120%; height: 120%; background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%); border-radius: 50%; z-index: -1;"></div>
+                        <img src="photo-removebg-preview.png" alt="Developer Portrait" style="max-width: 100%; width: 400px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); border-radius: 20px;">
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- 2. Who I Am -->
-        <section id="who-i-am" class="section who-section text-center" style="min-height: 100vh; position: relative; z-index: 2;">
+        <section id="who-i-am" class="section who-section text-center" style="display: flex; align-items: center;">
             <div class="container">
-                <div class="story-text-huge blur-reveal">
+                <div class="story-text-huge reveal-item">
                     <p style="font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.4; color: var(--text-main); font-weight: 500; max-width: 900px; margin: 0 auto;">
-                        I design and develop responsive, user-focused web applications using modern technologies.
+                        I design and develop responsive, user-focused web applications using React, Node.js, and modern technologies.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- 3. What I Do (Pinned Replace-in-Place Skills) -->
-        <div class="pinned-container" id="skills-container" style="height: 300vh;">
-            <section id="what-i-do" class="section do-section sticky-element" style="overflow: hidden;">
-                <div class="container" style="position: relative; height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <div class="section-header text-center" style="position: absolute; top: 15vh;">
-                        <p class="chapter-label blur-reveal">The Arsenal</p>
-                        <h2 class="section-title blur-reveal" style="transition-delay: 0.1s;">What I Do</h2>
+        <!-- 3. What I Do -->
+        <section id="what-i-do" class="section do-section">
+            <div class="container">
+                <div class="section-header text-center reveal-item" style="margin-bottom: 50px;">
+                    <p class="chapter-label">The Arsenal</p>
+                    <h2 class="section-title">What I Do</h2>
+                </div>
+                
+                <div class="skills-grid">
+                    <!-- Step 1 -->
+                    <div class="skill-card reveal-item" style="background: var(--bg-card); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--glass-border); transition: transform 0.3s ease;">
+                        <i class="fas fa-desktop fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">Frontend Development</h3>
+                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6;">React, Tailwind, UI/UX</p>
                     </div>
                     
-                    <div class="skills-steps-wrapper" style="position: relative; width: 100%; max-width: 800px; height: 300px; display: flex; justify-content: center; align-items: center;">
-                        
-                        <!-- Step 1 -->
-                        <div class="skill-step" id="skill-step-1" style="position: absolute; text-align: center; opacity: 1; transform: translateY(0); transition: opacity 0.5s ease, transform 0.5s ease; will-change: opacity, transform;">
-                            <h3 style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--text-main); margin-bottom: 20px;">Frontend Development</h3>
-                            <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); color: var(--accent); margin: 0; font-weight: 500;">React, Tailwind, UI/UX</p>
-                        </div>
-                        
-                        <!-- Step 2 -->
-                        <div class="skill-step" id="skill-step-2" style="position: absolute; text-align: center; opacity: 0; transform: translateY(50px); transition: opacity 0.5s ease, transform 0.5s ease; will-change: opacity, transform;">
-                            <h3 style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--text-main); margin-bottom: 20px;">Backend Development</h3>
-                            <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); color: var(--accent); margin: 0; font-weight: 500;">Node.js, APIs, Databases</p>
-                        </div>
-                        
-                        <!-- Step 3 -->
-                        <div class="skill-step" id="skill-step-3" style="position: absolute; text-align: center; opacity: 0; transform: translateY(50px); transition: opacity 0.5s ease, transform 0.5s ease; will-change: opacity, transform;">
-                            <h3 style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--text-main); margin-bottom: 20px;">WordPress Development</h3>
-                            <p style="font-size: clamp(1.2rem, 2vw, 1.8rem); color: var(--accent); margin: 0; font-weight: 500;">Customization & Optimization</p>
-                        </div>
-
+                    <!-- Step 2 -->
+                    <div class="skill-card reveal-item" style="background: var(--bg-card); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--glass-border); transition: transform 0.3s ease; transition-delay: 0.1s;">
+                        <i class="fas fa-server fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">Backend Development</h3>
+                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6;">Node.js, APIs, Databases</p>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="skill-card reveal-item" style="background: var(--bg-card); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--glass-border); transition: transform 0.3s ease; transition-delay: 0.2s;">
+                        <i class="fab fa-wordpress fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
+                        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">WordPress Development</h3>
+                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6;">Customization & Optimization</p>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
+        </section>
 
         <!-- 4. My Experience -->
         <section id="my-experience" class="section exp-section">
             <div class="container staggered-reveal-container">
-                <div class="section-header reveal-item">
+                <div class="section-header text-center reveal-item">
                     <p class="chapter-label">The Journey</p>
-                    <h2 class="section-title">My Experience</h2>
+                    <h2 class="section-title">Experience Flow</h2>
                 </div>
-                
-                <div class="experience-list" style="margin-top: 60px; max-width: 800px;">
-                    <div class="exp-item reveal-item" style="margin-bottom: 60px;">
-                        <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 5px;">DevAcademix</h3>
-                        <p style="font-size: 1.1rem; color: var(--text-main); font-weight: 500; margin-bottom: 15px;">Full Stack Developer Intern &bull; Sep 2025 – Nov 2025</p>
-                        <div style="font-size: 1.15rem; color: var(--text-muted); line-height: 1.8;">
-                            <p style="margin-bottom: 10px;">Worked on full-stack applications</p>
-                            <p style="margin-bottom: 10px;">Improved performance and UI/UX</p>
-                            <p style="margin-bottom: 10px;">Integrated APIs</p>
-                        </div>
-                    </div>
+
+                <div class="exp-flow" style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto; position: relative;">
+                    <!-- Line -->
+                    <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--glass-border); transform: translateX(20px);"></div>
                     
-                    <div class="exp-item reveal-item" style="margin-bottom: 60px;">
-                        <h3 style="font-size: 2rem; color: var(--accent); margin-bottom: 5px;">HiddenIdol</h3>
-                        <p style="font-size: 1.1rem; color: var(--text-main); font-weight: 500; margin-bottom: 15px;">WordPress Developer Intern &bull; 2025 (4 months)</p>
-                        <div style="font-size: 1.15rem; color: var(--text-muted); line-height: 1.8;">
-                            <p style="margin-bottom: 10px;">Maintained live WordPress website</p>
-                            <p style="margin-bottom: 10px;">Improved responsiveness</p>
-                            <p style="margin-bottom: 10px;">Optimized performance</p>
+                    <!-- Item 1 -->
+                    <div class="exp-item reveal-item" style="position: relative; padding-left: 60px; margin-bottom: 60px;">
+                        <div style="position: absolute; left: 0; top: 10px; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; z-index: 1;">
+                            <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 50%;"></div>
                         </div>
+                        <span style="color: var(--accent); font-weight: 600; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Feb 2024 &mdash; Mar 2024</span>
+                        <h3 style="font-size: clamp(1.8rem, 3vw, 2.2rem); color: var(--text-main); margin: 10px 0;">Web Developer Intern</h3>
+                        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 15px;">DevAcademix</p>
+                        <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; list-style-type: disc; padding-left: 20px;">
+                            <li>Architected and implemented responsive web portals</li>
+                            <li>Integrated third-party APIs seamlessly</li>
+                            <li>Maximized cross-browser compatibility</li>
+                        </ul>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="exp-item reveal-item" style="position: relative; padding-left: 60px; transition-delay: 0.2s;">
+                        <div style="position: absolute; left: 0; top: 10px; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; z-index: 1;">
+                            <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 50%;"></div>
+                        </div>
+                        <span style="color: var(--accent); font-weight: 600; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Dec 2023 &mdash; Jan 2024</span>
+                        <h3 style="font-size: clamp(1.8rem, 3vw, 2.2rem); color: var(--text-main); margin: 10px 0;">WordPress Developer</h3>
+                        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 15px;">HiddenIdol</p>
+                        <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; list-style-type: disc; padding-left: 20px;">
+                            <li>Transformed 3 core client sites into highly optimized platforms</li>
+                            <li>Engineered custom plugins pushing WordPress limits</li>
+                            <li>Boosted web vitals scoring dramatically</li>
+                        </ul>
                     </div>
                 </div>
-                
-                <p class="reveal-item" style="margin-top: 40px; font-style: italic; color: var(--text-muted); font-size: 0.9rem;">
-                    Offer letters can be provided upon request.
-                </p>
             </div>
         </section>
 
-        <!-- 5. Featured Project Case Study (Sat-LM - Scrollytelling) -->
-        <div class="pinned-container" id="sat-lm-container" style="padding-top: 150px;">
-            <div class="container" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; position: relative;">
-                
-                <!-- Left: Scrolling Text blocks -->
-                <div class="scrolling-story-text" style="padding-bottom: 50vh;">
-                    <div class="section-header" style="margin-bottom: 30vh;">
+        <!-- 5. Featured Project -->
+        <section id="featured-project" class="section project-section">
+            <div class="container">
+                <div class="split-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+                    
+                    <!-- Left: Text Story -->
+                    <div class="project-info reveal-item">
                         <p class="chapter-label">Featured Work</p>
-                        <h2 class="section-title">Sat-LM</h2>
-                        <p style="font-size: 1.5rem; color: var(--text-main); font-weight: 500;">AI-Powered Satellite Dashboard</p>
-                    </div>
+                        <h3 style="font-size: clamp(2.5rem, 4vw, 3.5rem); color: var(--text-main); line-height: 1.1; margin-bottom: 25px;">AI-Powered Satellite<br>Dashboard</h3>
 
-                    <div class="story-block reveal-item" style="height: 60vh; display: flex; flex-direction: column; justify-content: center;">
-                        <p style="font-size: 1.3rem; color: var(--text-muted); line-height: 1.6;">
-                            Built a real-time satellite tracking system using TLE data and a 3D visualization interface.
+                        <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;">
+                            Built a real-time satellite tracking platform using TLE data and a 3D interface.
                         </p>
-                    </div>
 
-                    <div class="story-block reveal-item" style="height: 60vh; display: flex; flex-direction: column; justify-content: center;">
-                        <h3 style="color: var(--text-main); font-size: 1.8rem; margin-bottom: 15px;">Handling real-time data efficiently</h3>
-                        <p style="font-size: 1.3rem; color: var(--text-muted); line-height: 1.6;">
-                            Developed backend APIs to fetch, parse, and cache orbital data with periodic updates to optimize performance.
-                        </p>
-                    </div>
+                        <div style="margin-bottom: 30px;">
+                            <h4 style="color: var(--text-main); font-size: 1.4rem; margin-bottom: 15px;">Key Features</h4>
+                            <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; list-style: none; padding: 0;">
+                                <li style="margin-bottom: 10px;"><i class="fas fa-satellite" style="color: var(--accent); margin-right: 15px;"></i> Handling real-time satellite data streams.</li>
+                                <li style="margin-bottom: 10px;"><i class="fas fa-bolt" style="color: var(--accent); margin-right: 15px;"></i> Backend APIs with intelligent caching.</li>
+                                <li><i class="fas fa-robot" style="color: var(--accent); margin-right: 15px;"></i> AI assistant integrated with grounded data.</li>
+                            </ul>
+                        </div>
 
-                    <div class="story-block reveal-item" style="height: 60vh; display: flex; flex-direction: column; justify-content: center;">
-                        <h3 style="color: var(--text-main); font-size: 1.8rem; margin-bottom: 15px;">Integrating AI with real-world data</h3>
-                        <p style="font-size: 1.3rem; color: var(--text-muted); line-height: 1.6;">
-                            Integrated an AI assistant for intelligent query handling grounded purely in live satellite telemetry.
-                        </p>
-                        <a href="https://github.com/harshada9270/Sat_LM" target="_blank" rel="noopener noreferrer" class="btn-primary" style="margin-top: 30px; width: fit-content;">
-                            <i class="fab fa-github" style="margin-right: 8px;"></i> View Repository
-                        </a>
-                    </div>
-                </div>
+                        <div class="tech-stack" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px;">
+                            <span class="badge">React</span>
+                            <span class="badge">Node.js</span>
+                            <span class="badge">Express</span>
+                            <span class="badge">TailwindCSS</span>
+                            <span class="badge">Ollama</span>
+                        </div>
 
-                <!-- Right: Sticky Visual -->
-                <div class="sticky-visual" style="position: sticky; top: 25vh; height: 50vh; display: flex; align-items: center; justify-content: center;">
-                    <div class="case-study-visual w-100" style="width: 100%;">
-                        <div class="mockup-frame" style="background: rgba(10, 15, 30, 0.8); border: 1px solid rgba(88, 101, 242, 0.4); border-radius: 30px; padding: 20px;">
-                           <div class="mockup-screen" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%); flex-direction: column; height: 350px; border-radius: 20px; display: flex; justify-content: center; align-items: center;">
-                                <i class="fas fa-globe-americas fa-5x" style="color: rgba(255,255,255,0.7); animation: float 4s ease-in-out infinite; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));"></i>
-                                <span style="font-family: monospace; font-size: 0.9rem; color: rgba(255,255,255,0.5);">[ TLE DATA SYNCING... ]</span>
-                           </div>
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <a href="https://github.com/harshada9270/Sat-LM" target="_blank" class="btn-primary">View Project <i class="fas fa-rocket" style="margin-left: 8px;"></i></a>
+                            <a href="https://github.com/harshada9270/Sat-LM" target="_blank" class="btn-secondary">GitHub <i class="fab fa-github" style="margin-left: 8px;"></i></a>
                         </div>
                     </div>
+                    
+                    <!-- Right: Visual -->
+                    <div class="project-visual reveal-item">
+                        <div class="glass" style="padding: 10px; border-radius: 20px;">
+                            <img src="SAT-Lm.png" alt="Sat-LM Project" style="width: 100%; border-radius: 12px; display: block; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
-
-        <!-- 6. Other Projects -->
-        <section id="other-projects" class="section work-section" style="padding-top: 100px;">
-            <div class="container">
-                <div class="project-grid" style="margin-top: 0;">
-                    <!-- Project 1 -->
-                    <div class="project-card reveal-item" style="display: flex; flex-direction: column; background: transparent; border: none; box-shadow: none;">
-                        <h3 style="font-size: 2rem; margin-bottom: 20px;">Carbon Footprint Monitor</h3>
-                        <div class="project-img placeholder-gradient-1" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); display: flex; align-items: center; justify-content: center; height: 250px; border-radius: 20px; margin-bottom: 30px;"><i class="fas fa-leaf fa-4x" style="color: rgba(255,255,255,0.4)"></i></div>
-                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 20px;">Interactive dashboard to track and visualize carbon emissions with charts, animations, and gamification.</p>
-                        <ul style="list-style-type: none; margin-bottom: 25px; font-size: 1rem; color: var(--text-main);">
-                            <li style="margin-bottom: 10px;">&bull; Data visualization</li>
-                            <li style="margin-bottom: 10px;">&bull; Interactive UI</li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Project 2 -->
-                    <div class="project-card reveal-item" style="display: flex; flex-direction: column; background: transparent; border: none; box-shadow: none; transition-delay: 0.2s;">
-                        <h3 style="font-size: 2rem; margin-bottom: 20px;">E-Commerce App</h3>
-        <!-- 5. Featured Project (Cinematic 7-Step Pinning) -->
-        <div class="pinned-container" id="sat-container" style="height: 700vh; background: var(--bg-dark);">
-            <section id="satlm" class="section project-section sticky-element" style="overflow: hidden; padding-top: 10vh;">
-                <div class="container split-layout" style="height: 90vh; align-items: stretch;">
-                    
-                    <!-- Left: Interpolated Text Story -->
-                    <div class="project-info" style="position: relative; height: 100%; display: flex; flex-direction: column; justify-content: center;">
-                        
-                        <!-- Step 1: Title -->
-                        <div id="sat-step-1" style="margin-bottom: 50px; opacity: 0; transform: translateY(30px); transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
-                            <p class="chapter-label">Featured Story</p>
-                            <h3 style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--text-main); line-height: 1.1;">AI-Powered Satellite<br>Dashboard</h3>
-                        </div>
-
-                        <div style="position: relative; height: 350px; width: 100%;">
-                            <!-- Step 3: Description -->
-                            <div id="sat-step-3" class="sat-step" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateY(50px); transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
-                                <p style="font-size: clamp(1.4rem, 2.5vw, 1.8rem); color: var(--text-muted); line-height: 1.6;">Built a real-time satellite tracking system using TLE data and a 3D interface.</p>
-                            </div>
-
-                            <!-- Step 4: Challenges -->
-                            <div id="sat-step-4" class="sat-step" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateY(50px); transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
-                                <h4 style="color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px;">The Challenge</h4>
-                                <ul style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.8; list-style: none; padding: 0;">
-                                    <li style="margin-bottom: 10px;"><i class="fas fa-exclamation-triangle" style="color: var(--accent); margin-right: 15px;"></i> Handling real-time satellite data streams.</li>
-                                    <li><i class="fas fa-bolt" style="color: var(--accent); margin-right: 15px;"></i> Optimizing performance with caching.</li>
-                                </ul>
-                            </div>
-
-                            <!-- Step 5: Solution -->
-                            <div id="sat-step-5" class="sat-step" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateY(50px); transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
-                                <h4 style="color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px;">The Solution</h4>
-                                <ul style="color: var(--text-muted); font-size: 1.2rem; line-height: 1.8; list-style: none; padding: 0;">
-                                    <li style="margin-bottom: 10px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 15px;"></i> Backend APIs with efficient data processing.</li>
-                                    <li><i class="fas fa-robot" style="color: var(--accent); margin-right: 15px;"></i> AI assistant integrated with grounded data.</li>
-                                </ul>
-                            </div>
-
-                            <!-- Step 6: Tech Stack -->
-                            <div id="sat-step-6" class="sat-step" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateY(50px); transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
-                                <h4 style="color: var(--text-main); font-size: 1.8rem; margin-bottom: 20px;">Technologies Used</h4>
-                                <div class="tech-stack" style="gap: 15px; flex-wrap: wrap;">
-                                    <span class="badge">React</span>
-                                    <span class="badge">Node.js</span>
-                                    <span class="badge">Express</span>
-                                    <span class="badge">TailwindCSS</span>
-                                    <span class="badge">Ollama</span>
-                                </div>
-                            </div>
-
-                            <!-- Step 7: CTA -->
-                            <div id="sat-step-7" class="sat-step" style="position: absolute; top: 0; left: 0; width: 100%; opacity: 0; transform: translateY(50px); transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
-                                <h4 style="color: var(--text-main); font-size: 1.8rem; margin-bottom: 30px;">See it in Action</h4>
-                                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                                    <a href="https://github.com/harshada9270/Sat-LM" target="_blank" class="btn-primary">View Project <i class="fas fa-rocket" style="margin-left: 8px;"></i></a>
-                                    <a href="https://github.com/harshada9270/Sat-LM" target="_blank" class="btn-secondary">Source Code <i class="fab fa-github" style="margin-left: 8px;"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Right: Interpolated Visual (Step 2 triggers this) -->
-                    <div class="project-visual" style="position: relative; height: 100%; display: flex; align-items: center; justify-content: center;">
-                        <div id="sat-image" class="glass" style="padding: 10px; border-radius: 20px; opacity: 0; transform: scale(0.9) translateY(40px); transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1); filter: blur(5px);">
-                            <img src="https://via.placeholder.com/600x400/1e293b/38bdf8?text=Sat-LM+Dashboard" alt="Sat-LM Project" style="width: 100%; border-radius: 12px; display: block; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-        </div>
+        </section>
 
         <!-- 6. Secondary Projects (Lighter Animation) -->
         <section id="other-projects" class="section projects-section">
             <div class="container staggered-reveal-container">
-                <div class="section-header text-center blur-reveal">
+                <div class="section-header text-center reveal-item">
                     <p class="chapter-label">More Work</p>
                     <h2 class="section-title">Selected Projects</h2>
                 </div>
                 
                 <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 60px;">
                     <!-- Carbon Footprint -->
-                    <div class="project-card reveal-item glass" style="border-radius: 24px; overflow: hidden; display: flex; flex-direction: column;">
+                    <div class="project-card reveal-item" style="border-radius: 24px; overflow: hidden; display: flex; flex-direction: column;">
                         <img src="https://via.placeholder.com/600x300/1e293b/38bdf8?text=Carbon+Monitor" alt="Carbon Footprint Monitor" style="width: 100%; height: 240px; object-fit: cover; transition: transform 0.5s ease;">
                         <div style="padding: 40px;">
                             <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">Carbon Footprint Monitor</h3>
@@ -303,8 +215,8 @@
                     </div>
 
                     <!-- E-Commerce -->
-                    <div class="project-card reveal-item glass" style="border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition-delay: 0.2s;">
-                        <img src="https://via.placeholder.com/600x300/1e293b/38bdf8?text=E-Commerce" alt="E-Commerce App" style="width: 100%; height: 240px; object-fit: cover; transition: transform 0.5s ease;">
+                    <div class="project-card reveal-item" style="border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition-delay: 0.2s;">
+                        <img src="E-Commerce.png" alt="E-Commerce App" style="width: 100%; height: 240px; object-fit: cover; transition: transform 0.5s ease;">
                         <div style="padding: 40px;">
                             <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">E-Commerce Platform</h3>
                             <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 25px;">A full-featured online storefront with React and Node.js backend.</p>
@@ -318,7 +230,7 @@
         <!-- 7. Large Visual Moment -->
         <section class="section text-center" style="min-height: 80vh; display: flex; align-items: center;">
             <div class="container">
-                <h1 class="blur-reveal" style="font-size: clamp(4rem, 8vw, 10rem); font-weight: 700; background: linear-gradient(135deg, #fff 20%, #38bdf8 80%); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; letter-spacing: -3px; text-shadow: 0 10px 40px rgba(56, 189, 248, 0.2);">
+                <h1 class="reveal-item" style="font-size: clamp(4rem, 8vw, 10rem); font-weight: 700; background: linear-gradient(135deg, #fff 20%, #38bdf8 80%); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; letter-spacing: -3px; text-shadow: 0 10px 40px rgba(56, 189, 248, 0.2);">
                     Code.<br>Design.<br>Impact.
                 </h1>
             </div>
@@ -327,12 +239,12 @@
         <!-- 8. Achievements / Proof -->
         <section id="achievements" class="section achievements-section">
             <div class="container staggered-reveal-container">
-                <div class="section-header text-center blur-reveal">
+                <div class="section-header text-center reveal-item">
                     <p class="chapter-label">The Evidence</p>
                     <h2 class="section-title">Achievements</h2>
                 </div>
                 
-                <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 70px;">
+                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 70px;">
                     <div class="stat-card reveal-item" style="padding: 40px; border-radius: 30px; background: rgba(255,255,255,0.02); text-align: center; border: 1px solid var(--glass-border);">
                         <i class="fas fa-trophy fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
                         <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 5px;">Smart India Hackathon</h3>
@@ -340,8 +252,8 @@
                     </div>
                     
                     <div class="stat-card reveal-item" style="padding: 40px; border-radius: 30px; background: rgba(255,255,255,0.02); text-align: center; border: 1px solid var(--glass-border); transition-delay: 0.1s;">
-                        <i class="fas fa-brain fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
-                        <div style="font-size: 3.5rem; color: var(--accent); line-height: 1; margin-bottom: 10px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700;"><span class="counter" data-target="100">0</span><span style="font-size: 2.5rem; color: var(--accent);">+</span></div>
+                        <i class="fas fa-brain fa-3x" style="color: var(--accent); margin-bottom: 20px; display: block;"></i>
+                        <div style="font-size: 3.5rem; color: var(--accent); line-height: 1; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700;"><span class="counter" data-target="100">0</span><span style="font-size: 2.5rem; color: var(--accent);">+</span></div>
                         <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 5px;">DSA Problems Solved</h3>
                     </div>
                     
@@ -356,7 +268,7 @@
 
         <!-- 9. Final Impact Section -->
         <section id="contact" class="section contact-section text-center" style="min-height: 90vh; display: flex; align-items: center;">
-            <div class="container blur-reveal" style="max-width: 1000px;">
+            <div class="container reveal-item" style="max-width: 1000px;">
                 <h2 style="font-size: clamp(3.5rem, 8vw, 6rem); color: var(--text-main); font-weight: 700; margin-bottom: 20px; line-height: 1.1; letter-spacing: -2px;">Let's Build Something Amazing.</h2>
                 <p style="font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--text-muted); margin-bottom: 50px;">Open to opportunities and collaborations.</p>
                 <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
