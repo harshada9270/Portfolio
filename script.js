@@ -6,15 +6,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => document.body.classList.add('loaded'), 100);
 
-    /* --- 1. Navigation Scroll Effect --- */
+    /* --- 1. Navigation Scroll & Hide Effect --- */
     const navbar = document.getElementById('navbar');
+    let lastScrollY = window.scrollY;
     
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        const currentScrollY = window.scrollY;
+        
+        // Solid background toggle
+        if (currentScrollY > 50) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
+        
+        // Hide/Show logic for cinematic feel
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            navbar.classList.add('nav-hidden');
+        } else {
+            navbar.classList.remove('nav-hidden');
+        }
+        lastScrollY = currentScrollY;
     });
 
     /* --- 2. Mobile Menu Toggle --- */
@@ -46,20 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --- 3. True Scrollytelling Engine --- */
+    /* --- 3. Cinematic Scrollytelling Engine --- */
     const heroContainer = document.getElementById('hero-container');
     const heroText = document.querySelector('.hero-text');
     const heroImage = document.querySelector('.image-wrapper img');
+    const heroBgGradient = document.getElementById('hero-bg-gradient');
     let isTicking = false;
     let hasCounted = false;
 
-    // Intersection Observer for Reveal Items (Smooth Apple-style stagger fade-up)
+    // Intersection Observer for Details (Blur-to-Sharp & Stagger)
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
             } else {
-                // Remove visibility to replay animation when scrolling back up (continuous feel)
                 const currentScroll = window.scrollY;
                 if (currentScroll > entry.boundingClientRect.top) {
                     entry.target.classList.remove('visible');
@@ -75,32 +87,125 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     
     const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
-    document.querySelectorAll('.reveal, .reveal-item').forEach(el => {
+    document.querySelectorAll('.reveal, .reveal-item, .blur-reveal').forEach(el => {
         revealObserver.observe(el);
     });
 
-    // Request Animation Frame loop for specific continuous parallax (Hero)
+    // Main Scroll Timeline Loop
     window.addEventListener('scroll', () => {
         if (!isTicking) {
             requestAnimationFrame(() => {
                 const scrollY = window.scrollY;
                 const wHeight = window.innerHeight;
 
-                // Sync global scroll variable for CSS parallax
                 document.body.style.setProperty('--scroll', `${scrollY}px`);
 
-                // A. Hero Pinned Progression (Fade out and Scale down)
+                // A. Hero Pinned Progression (300vh height = 3 multipliers)
                 if (heroContainer) {
-                    const heroScroll = window.scrollY; // Distance scrolled from top (hero is top of page)
-                    if (heroScroll <= wHeight * 2) { // Container height is 200vh
-                        const heroProgress = heroScroll / wHeight; // 0 to 2
+                    const heroScroll = window.scrollY;
+                    if (heroScroll <= wHeight * 3) {
+                        const heroProgress = heroScroll / (wHeight * 2); // Normalize 0 to 1 over first 200vh
+                        const clampedProgress = Math.min(Math.max(heroProgress, 0), 1);
                         
                         if (heroText) {
-                            heroText.style.opacity = Math.max(0, 1 - (heroProgress * 1.5));
-                            heroText.style.transform = `translateY(${heroProgress * 120}px)`;
+                            heroText.style.opacity = 1 - clampedProgress;
+                            heroText.style.transform = `translateY(${clampedProgress * -100}px)`; // move upward
+                            heroText.style.filter = `blur(${clampedProgress * 20}px)`;
                         }
                         if (heroImage) {
-                            heroImage.style.transform = `translateY(${heroProgress * 50}px) scale(${1 - (heroProgress * 0.1)})`;
+                            heroImage.style.transform = `translateY(${clampedProgress * -150}px) scale(${1 - (clampedProgress * 0.2)})`; // Scale down to 0.8
+                        }
+                        if (heroBgGradient) {
+                            heroBgGradient.style.transform = `translateY(${clampedProgress * 200}px) scale(${1 + clampedProgress * 0.5})`;
+                            heroBgGradient.style.opacity = 1 - (clampedProgress * 0.8);
+                        }
+                    }
+                }
+
+                // B. Skills Pinned Progression
+                const skillsContainer = document.getElementById('skills-container');
+                if (skillsContainer) {
+                    const rect = skillsContainer.getBoundingClientRect();
+                    const scrollable = skillsContainer.offsetHeight - wHeight;
+                    const scrolled = -rect.top;
+                    
+                    if (scrolled >= -wHeight && scrolled <= scrollable + wHeight) {
+                        const progress = Math.min(Math.max(scrolled / scrollable, 0), 1);
+                        
+                        const step1 = document.getElementById('skill-step-1');
+                        const step2 = document.getElementById('skill-step-2');
+                        const step3 = document.getElementById('skill-step-3');
+                        
+                        if (step1 && step2 && step3) {
+                            if (progress < 0.33) {
+                                step1.style.opacity = 1; step1.style.transform = 'translateY(0)';
+                                step2.style.opacity = 0; step2.style.transform = 'translateY(50px)';
+                                step3.style.opacity = 0; step3.style.transform = 'translateY(50px)';
+                            } else if (progress >= 0.33 && progress < 0.66) {
+                                step1.style.opacity = 0; step1.style.transform = 'translateY(-50px)';
+                                step2.style.opacity = 1; step2.style.transform = 'translateY(0)';
+                                step3.style.opacity = 0; step3.style.transform = 'translateY(50px)';
+                            } else {
+                                step1.style.opacity = 0; step1.style.transform = 'translateY(-50px)';
+                                step2.style.opacity = 0; step2.style.transform = 'translateY(-50px)';
+                                step3.style.opacity = 1; step3.style.transform = 'translateY(0)';
+                            }
+                        }
+                    }
+                }
+
+                // C. Sat-LM 7-Step Cinematic Pinned Progression
+                const satContainer = document.getElementById('sat-container');
+                if (satContainer) {
+                    const rect = satContainer.getBoundingClientRect();
+                    const scrollable = satContainer.offsetHeight - wHeight;
+                    const scrolled = -rect.top;
+                    
+                    if (scrolled >= -wHeight && scrolled <= scrollable + wHeight) {
+                        const p = Math.min(Math.max(scrolled / scrollable, 0), 1);
+                        
+                        const s1 = document.getElementById('sat-step-1');
+                        const img = document.getElementById('sat-image');
+                        const s3 = document.getElementById('sat-step-3');
+                        const s4 = document.getElementById('sat-step-4');
+                        const s5 = document.getElementById('sat-step-5');
+                        const s6 = document.getElementById('sat-step-6');
+                        const s7 = document.getElementById('sat-step-7');
+
+                        // Step 1: Title (Starts early)
+                        if (s1) {
+                            if (p > 0.02) { s1.style.opacity = 1; s1.style.transform = 'translateY(0)'; }
+                            else { s1.style.opacity = 0; s1.style.transform = 'translateY(30px)'; }
+                        }
+
+                        // Step 2: Image
+                        if (img) {
+                            if (p > 0.1) { img.style.opacity = 1; img.style.transform = 'scale(1) translateY(0)'; img.style.filter = 'blur(0)'; }
+                            else { img.style.opacity = 0; img.style.transform = 'scale(0.9) translateY(40px)'; img.style.filter = 'blur(5px)'; }
+                        }
+
+                        // Steps 3-7: Replacing Text sequence
+                        const updateStep = (el, active) => {
+                            if (!el) return;
+                            if (active) {
+                                el.style.opacity = 1; el.style.transform = 'translateY(0)'; el.style.pointerEvents = 'auto';
+                            } else {
+                                el.style.opacity = 0; el.style.transform = 'translateY(30px)'; el.style.pointerEvents = 'none';
+                            }
+                        };
+
+                        if (p > 0.2 && p < 0.35) {
+                            updateStep(s3, true); updateStep(s4, false); updateStep(s5, false); updateStep(s6, false); updateStep(s7, false);
+                        } else if (p >= 0.35 && p < 0.5) {
+                            updateStep(s3, false); updateStep(s4, true); updateStep(s5, false); updateStep(s6, false); updateStep(s7, false);
+                        } else if (p >= 0.5 && p < 0.65) {
+                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, true); updateStep(s6, false); updateStep(s7, false);
+                        } else if (p >= 0.65 && p < 0.8) {
+                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, false); updateStep(s6, true); updateStep(s7, false);
+                        } else if (p >= 0.8) {
+                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, false); updateStep(s6, false); updateStep(s7, true);
+                        } else {
+                            updateStep(s3, false); updateStep(s4, false); updateStep(s5, false); updateStep(s6, false); updateStep(s7, false);
                         }
                     }
                 }
@@ -111,19 +216,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Image Hover Tilt Logic --- 
+    const tiltImgWrap = document.querySelector('.hero-img-wrap');
+    if (tiltImgWrap && window.matchMedia("(pointer: fine)").matches) {
+        tiltImgWrap.addEventListener('mousemove', (e) => {
+            const rect = tiltImgWrap.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const xPos = (x / rect.width - 0.5) * 15; // -7.5 to 7.5 deg
+            const yPos = (y / rect.height - 0.5) * -15;
+            // Retain the scrollytelling transform on the child image so they don't fight
+            tiltImgWrap.querySelector('.tilt-img').style.transform = `rotateY(${xPos}deg) rotateX(${yPos}deg) scale(1.05)`;
+        });
+        tiltImgWrap.addEventListener('mouseleave', () => {
+            tiltImgWrap.querySelector('.tilt-img').style.transform = `rotateY(0deg) rotateX(0deg) scale(1)`;
+        });
+        // smooth reset transition
+        tiltImgWrap.querySelector('.tilt-img').style.transition = 'transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)';
+    }
+
     /* --- 4. Counter Animation Observer Logic --- */
-    const counters = document.querySelectorAll('.counter');
-    const speed = 200;
-
-    const counterObserver = new IntersectionObserver((entries) => {
-        if(entries[0].isIntersecting && !hasCounted) {
-            startCounters();
-            hasCounted = true;
-        }
-    }, { threshold: 0.2 });
-
-    const achievementsSection = document.getElementById('achievements');
-    if (achievementsSection) counterObserver.observe(achievementsSection);
 
     function startCounters() {
         counters.forEach(counter => {

@@ -21,9 +21,9 @@
     --section-pad: 180px 0; /* Huge spacing for premium feel */
     --container-max: 1250px;
     
-    /* Transitions (Premium Scrollytelling Ease) */
-    --transition-fast: 0.5s ease-in-out;
-    --transition-smooth: 1.2s ease-in-out;
+    /* Transitions (Cinematic Scrollytelling Ease) */
+    --transition-fast: 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-smooth: 1.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Base Styles */
@@ -264,6 +264,10 @@ nav.scrolled {
     padding: 15px 0;
     border-bottom: 1px solid var(--glass-border);
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+nav.nav-hidden {
+    transform: translateY(-100%);
 }
 
 .nav-container {
@@ -761,11 +765,31 @@ footer {
     box-shadow: 0 10px 20px rgba(56, 189, 248, 0.4);
 }
 
+/* Cinematic Blur Reveal */
+.blur-reveal {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(30px);
+    transition: opacity 1.5s cubic-bezier(0.22, 1, 0.36, 1), filter 1.5s cubic-bezier(0.22, 1, 0.36, 1), transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, filter, transform;
+}
+
+.blur-reveal.visible {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+}
+
+.line-wrapper {
+    overflow: hidden;
+    display: block;
+}
+
 /* Premium Scroll Animations - Scrollytelling Natural Interpolation */
 .reveal, .reveal-item {
     opacity: 0;
     transform: translateY(40px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
 }
 
