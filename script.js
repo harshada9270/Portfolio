@@ -46,14 +46,40 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* --- 3. True Scrollytelling Engine (Parallax & Continual Interpolation) --- */
-    const heroSection = document.getElementById('hero');
+    /* --- 3. True Scrollytelling Engine --- */
+    const heroContainer = document.getElementById('hero-container');
     const heroText = document.querySelector('.hero-text');
     const heroImage = document.querySelector('.image-wrapper img');
-    const scrollRevealElements = document.querySelectorAll('.reveal');
     let isTicking = false;
     let hasCounted = false;
 
+    // Intersection Observer for Reveal Items (Smooth Apple-style stagger fade-up)
+    const revealCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            } else {
+                // Remove visibility to replay animation when scrolling back up (continuous feel)
+                const currentScroll = window.scrollY;
+                if (currentScroll > entry.boundingClientRect.top) {
+                    entry.target.classList.remove('visible');
+                }
+            }
+        });
+    };
+    
+    const revealOptions = {
+        root: null,
+        rootMargin: '0px 0px -15% 0px',
+        threshold: 0.1
+    };
+    
+    const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
+    document.querySelectorAll('.reveal, .reveal-item').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // Request Animation Frame loop for specific continuous parallax (Hero)
     window.addEventListener('scroll', () => {
         if (!isTicking) {
             requestAnimationFrame(() => {
@@ -63,40 +89,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Sync global scroll variable for CSS parallax
                 document.body.style.setProperty('--scroll', `${scrollY}px`);
 
-                // A. Hero Parallax & Scroll-tied Fade
-                if (heroSection) {
-                    const heroHeight = heroSection.offsetHeight;
-                    if (scrollY <= heroHeight) {
-                        const heroProgress = scrollY / heroHeight;
+                // A. Hero Pinned Progression (Fade out and Scale down)
+                if (heroContainer) {
+                    const heroScroll = window.scrollY; // Distance scrolled from top (hero is top of page)
+                    if (heroScroll <= wHeight * 2) { // Container height is 200vh
+                        const heroProgress = heroScroll / wHeight; // 0 to 2
                         
                         if (heroText) {
-                            heroText.style.opacity = Math.max(0, 1 - (heroProgress * 1.8));
+                            heroText.style.opacity = Math.max(0, 1 - (heroProgress * 1.5));
                             heroText.style.transform = `translateY(${heroProgress * 120}px)`;
                         }
                         if (heroImage) {
-                            heroImage.style.transform = `translateY(${heroProgress * 60}px) scale(${1 - heroProgress * 0.05})`;
+                            heroImage.style.transform = `translateY(${heroProgress * 50}px) scale(${1 - (heroProgress * 0.1)})`;
                         }
                     }
                 }
-
-                // B. Continuous Scroll Reveals for all other elements
-                scrollRevealElements.forEach(el => {
-                    const rect = el.getBoundingClientRect();
-                    const triggerPoint = wHeight * 0.95; // Animation begins when element hits bottom 5%
-                    
-                    if (rect.top < triggerPoint) {
-                        const distancePast = triggerPoint - rect.top;
-                        const fadeDistance = 250; // Distance of scroll over which it fully reveals
-                        let progress = Math.min(distancePast / fadeDistance, 1);
-                        progress = Math.max(progress, 0); // Clamp
-                        
-                        el.style.opacity = progress;
-                        el.style.transform = `translateY(${(1 - progress) * 50}px)`;
-                    } else {
-                        el.style.opacity = 0;
-                        el.style.transform = `translateY(50px)`;
-                    }
-                });
 
                 isTicking = false;
             });
