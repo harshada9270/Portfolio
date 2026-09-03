@@ -1,10 +1,12 @@
 /* =========================================================================
-   SCRIPT.JS - Interactions and Storytelling Logic
+   SCRIPT.JS - Interactions, Animations and Responsive Logic
    ========================================================================= */
 
 document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => document.body.classList.add('loaded'), 100);
+
+    let hasCounted = false;
 
     /* --- 1. Navigation Scroll & Hide Effect --- */
     const navbar = document.getElementById('navbar');
@@ -14,52 +16,64 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentScrollY = window.scrollY;
         
         // Solid background toggle
-        if (currentScrollY > 50) {
+        if (currentScrollY > 40) {
             navbar.classList.add('scrolled');
         } else {
             navbar.classList.remove('scrolled');
         }
         
-        // Hide on scroll down, show on scroll up
-        if (currentScrollY > lastScrollY && currentScrollY > 100) {
-            navbar.classList.add('nav-hidden');
-        } else {
-            navbar.classList.remove('nav-hidden');
+        // Hide on scroll down, show on scroll up (only when menu is closed)
+        const navLinks = document.querySelector('.nav-links');
+        const isMenuOpen = navLinks && navLinks.classList.contains('nav-active');
+        
+        if (!isMenuOpen) {
+            if (currentScrollY > lastScrollY && currentScrollY > 120) {
+                navbar.classList.add('nav-hidden');
+            } else {
+                navbar.classList.remove('nav-hidden');
+            }
         }
         
         lastScrollY = currentScrollY;
-    });
+    }, { passive: true });
 
     /* --- 2. Mobile Menu Toggle --- */
     const menuToggle = document.getElementById('mobile-menu');
     const navLinks = document.querySelector('.nav-links');
     const navItems = document.querySelectorAll('.nav-links a');
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('nav-active');
-        const icon = menuToggle.querySelector('i');
-        if (navLinks.classList.contains('nav-active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
-        }
-    });
-
-    // Close menu when clicking a link
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('nav-active');
+            const icon = menuToggle.querySelector('i');
             if (navLinks.classList.contains('nav-active')) {
-                navLinks.classList.remove('nav-active');
-                const icon = menuToggle.querySelector('i');
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling when menu is open
+            } else {
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
+                document.body.style.overflow = '';
             }
         });
-    });
 
-    /* --- 3. Intersection Observer for Fade-Ins --- */
+        // Close menu when clicking a link
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (navLinks.classList.contains('nav-active')) {
+                    navLinks.classList.remove('nav-active');
+                    const icon = menuToggle.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                    document.body.style.overflow = '';
+                }
+            });
+        });
+    }
+
+    /* --- 3. Intersection Observer for Fade-Ins & Counters --- */
     const revealCallback = (entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -76,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const revealOptions = {
         root: null,
-        rootMargin: '0px 0px -15% 0px',
-        threshold: 0.1
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.05
     };
     
     const revealObserver = new IntersectionObserver(revealCallback, revealOptions);
@@ -85,20 +99,20 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.observe(el);
     });
 
-    /* --- 4. Counter Animation Observer Logic --- */
-
+    /* --- 4. Counter Animation Logic --- */
     function startCounters() {
         const counters = document.querySelectorAll('.counter');
-        const speed = 200;
+        const speed = 120;
         counters.forEach(counter => {
-            const updateCount = () => {
-                const target = +counter.getAttribute('data-target');
-                const count = +counter.innerText;
-                const inc = target / speed;
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const inc = Math.max(1, Math.ceil(target / speed));
 
+            const updateCount = () => {
+                count += inc;
                 if (count < target) {
-                    counter.innerText = Math.ceil(count + inc);
-                    setTimeout(updateCount, 20);
+                    counter.innerText = count;
+                    setTimeout(updateCount, 25);
                 } else {
                     counter.innerText = target;
                 }
@@ -115,7 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.clientHeight;
-            if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
+            if (window.pageYOffset >= (sectionTop - sectionHeight / 3)) {
                 current = section.getAttribute('id');
             }
         });
@@ -126,26 +140,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 a.classList.add('active');
             }
         });
-    });
-    
-    /* --- 6. Form Submission Prevention (Demo) --- */
-    const form = document.getElementById('form');
-    if(form) {
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = form.querySelector('button');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-            btn.style.background = '#00c853';
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = '';
-                form.reset();
-            }, 3000);
-        });
-    }
+    }, { passive: true });
 
-    /* --- 6. Custom Scrollytelling Cursor --- */
+    /* --- 6. Custom Scrollytelling Cursor (Desktop Fine Pointer Only) --- */
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
     
@@ -175,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         animateCursor();
         
-        document.querySelectorAll('a, button, input, textarea, .menu-toggle, .stat-card, .project-card, .dive-card, .case-study-card').forEach(el => {
+        document.querySelectorAll('a, button, input, textarea, .menu-toggle, .stat-card, .project-card, .skill-card').forEach(el => {
             el.addEventListener('mouseenter', () => {
                 cursorOutline.classList.add('hover-state');
                 cursorDot.classList.add('hover-state');

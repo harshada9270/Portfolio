@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>Harshada Ankush Kakade | Web Developer</title>
-    <meta name="description" content="A scroll-based storytelling portfolio of a modern Full-Stack Web Developer.">
+    <meta name="description" content="Portfolio of Harshada Ankush Kakade - Full-Stack Web Developer specializing in React, Node.js, and modern web technologies.">
     
     <!-- Google Fonts: Outfit for a modern, sleek look -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="style.css">
     <!-- FontAwesome for standard icons -->
@@ -25,12 +25,13 @@
                 <li><a href="#who-i-am">Who I Am</a></li>
                 <li><a href="#what-i-do">What I Do</a></li>
                 <li><a href="#my-experience">Experience</a></li>
-                <li><a href="#my-work">Work</a></li>
+                <li><a href="#featured-project">Work</a></li>
+                <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#contact" class="btn-primary-small">Contact</a></li>
             </ul>
-            <div class="menu-toggle" id="mobile-menu">
+            <button class="menu-toggle" id="mobile-menu" aria-label="Toggle navigation menu">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
         </div>
     </nav>
 
@@ -38,31 +39,31 @@
         
         <!-- 1. Hero Section -->
         <section id="hero" class="section hero-section">
-            <div class="container hero-content" style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;">
-                <div class="hero-text" style="z-index: 2;">
+            <div class="container hero-content">
+                <div class="hero-text">
                     <p class="subtitle reveal-item">Hi, I'm Harshada</p>
-                    <h1 class="reveal-item" style="font-size: clamp(3rem, 6vw, 5rem); color: var(--text-main); font-weight: 700; margin-bottom: 20px;">Full-Stack Developer</h1>
-                    <p class="hero-desc reveal-item" style="color: var(--text-muted); font-size: 1.3rem; margin-bottom: 30px;">building scalable and modern web applications.</p>
+                    <h1 class="hero-title reveal-item">Full-Stack Developer</h1>
+                    <p class="hero-desc reveal-item">building scalable and modern web applications.</p>
                     <div class="hero-cta reveal-item">
                         <a href="#who-i-am" class="btn-primary">Explore My Journey</a>
-                        <a href="Resume.pdf" download="Harshada_Kakade_Resume.pdf" class="btn-secondary">Download Resume <i class="fas fa-download" style="margin-left: 8px;"></i></a>
+                        <a href="Resume.pdf" download="Harshada_Kakade_Resume.pdf" class="btn-secondary">Download Resume <i class="fas fa-download"></i></a>
                     </div>
                 </div>
-                <div class="hero-image reveal-item" style="display: flex; justify-content: center; position: relative; z-index: 1;">
-                    <div class="image-wrapper hero-img-wrap" style="position: relative;">
-                        <!-- Subtle background glow -->
-                        <div class="backdrop-glow" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120%; height: 120%; background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%); border-radius: 50%; z-index: -1;"></div>
-                        <img src="photo-removebg-preview.png" alt="Developer Portrait" style="max-width: 100%; width: 400px; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)); border-radius: 20px;">
+                <div class="hero-image reveal-item">
+                    <div class="image-wrapper hero-img-wrap">
+                        <!-- Glowing ambient background behind portrait -->
+                        <div class="backdrop-glow"></div>
+                        <img src="photo-removebg-preview.png" alt="Harshada Kakade - Developer Portrait" class="developer-avatar">
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 2. Who I Am -->
-        <section id="who-i-am" class="section who-section text-center" style="display: flex; align-items: center;">
+        <section id="who-i-am" class="section who-section text-center">
             <div class="container">
                 <div class="story-text-huge reveal-item">
-                    <p style="font-size: clamp(1.8rem, 4vw, 3rem); line-height: 1.4; color: var(--text-main); font-weight: 500; max-width: 900px; margin: 0 auto;">
+                    <p>
                         I design and develop responsive, user-focused web applications using React, Node.js, and modern technologies.
                     </p>
                 </div>
@@ -72,31 +73,37 @@
         <!-- 3. What I Do -->
         <section id="what-i-do" class="section do-section">
             <div class="container">
-                <div class="section-header text-center reveal-item" style="margin-bottom: 50px;">
+                <div class="section-header text-center reveal-item">
                     <p class="chapter-label">The Arsenal</p>
                     <h2 class="section-title">What I Do</h2>
                 </div>
                 
                 <div class="skills-grid">
                     <!-- Step 1 -->
-                    <div class="skill-card reveal-item" style="background: var(--bg-card); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--glass-border); transition: transform 0.3s ease;">
-                        <i class="fas fa-desktop fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
-                        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">Frontend Development</h3>
-                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6;">React, Tailwind, UI/UX</p>
+                    <div class="skill-card reveal-item">
+                        <div class="skill-icon-wrap">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <h3>Frontend Development</h3>
+                        <p>React, Tailwind, UI/UX</p>
                     </div>
                     
                     <!-- Step 2 -->
-                    <div class="skill-card reveal-item" style="background: var(--bg-card); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--glass-border); transition: transform 0.3s ease; transition-delay: 0.1s;">
-                        <i class="fas fa-server fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
-                        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">Backend Development</h3>
-                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6;">Node.js, APIs, Databases</p>
+                    <div class="skill-card reveal-item">
+                        <div class="skill-icon-wrap">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h3>Backend Development</h3>
+                        <p>Node.js, APIs, Databases</p>
                     </div>
                     
                     <!-- Step 3 -->
-                    <div class="skill-card reveal-item" style="background: var(--bg-card); padding: 40px; border-radius: 20px; text-align: center; border: 1px solid var(--glass-border); transition: transform 0.3s ease; transition-delay: 0.2s;">
-                        <i class="fab fa-wordpress fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
-                        <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">WordPress Development</h3>
-                        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6;">Customization & Optimization</p>
+                    <div class="skill-card reveal-item">
+                        <div class="skill-icon-wrap">
+                            <i class="fab fa-wordpress"></i>
+                        </div>
+                        <h3>WordPress Development</h3>
+                        <p>Customization & Optimization</p>
                     </div>
                 </div>
             </div>
@@ -110,19 +117,19 @@
                     <h2 class="section-title">Experience Flow</h2>
                 </div>
 
-                <div class="exp-flow" style="margin-top: 60px; max-width: 800px; margin-left: auto; margin-right: auto; position: relative;">
-                    <!-- Line -->
-                    <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--glass-border); transform: translateX(20px);"></div>
+                <div class="exp-flow">
+                    <!-- Timeline background line -->
+                    <div class="exp-timeline-line"></div>
                     
                     <!-- Item 1 -->
-                    <div class="exp-item reveal-item" style="position: relative; padding-left: 60px; margin-bottom: 60px;">
-                        <div style="position: absolute; left: 0; top: 10px; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; z-index: 1;">
-                            <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 50%;"></div>
+                    <div class="exp-item reveal-item">
+                        <div class="exp-dot-wrap">
+                            <div class="exp-dot-core"></div>
                         </div>
-                        <span style="color: var(--accent); font-weight: 600; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Feb 2024 &mdash; Mar 2024</span>
-                        <h3 style="font-size: clamp(1.8rem, 3vw, 2.2rem); color: var(--text-main); margin: 10px 0;">Web Developer Intern</h3>
-                        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 15px;">DevAcademix</p>
-                        <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; list-style-type: disc; padding-left: 20px;">
+                        <span class="exp-date">Feb 2024 &mdash; Mar 2024</span>
+                        <h3 class="exp-role">Web Developer Intern</h3>
+                        <p class="exp-company">DevAcademix</p>
+                        <ul class="exp-tasks">
                             <li>Architected and implemented responsive web portals</li>
                             <li>Integrated third-party APIs seamlessly</li>
                             <li>Maximized cross-browser compatibility</li>
@@ -130,14 +137,14 @@
                     </div>
 
                     <!-- Item 2 -->
-                    <div class="exp-item reveal-item" style="position: relative; padding-left: 60px; transition-delay: 0.2s;">
-                        <div style="position: absolute; left: 0; top: 10px; width: 40px; height: 40px; border-radius: 50%; background: var(--bg-dark); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; z-index: 1;">
-                            <div style="width: 12px; height: 12px; background: var(--accent); border-radius: 50%;"></div>
+                    <div class="exp-item reveal-item">
+                        <div class="exp-dot-wrap">
+                            <div class="exp-dot-core"></div>
                         </div>
-                        <span style="color: var(--accent); font-weight: 600; font-size: 1rem; letter-spacing: 2px; text-transform: uppercase;">Dec 2023 &mdash; Jan 2024</span>
-                        <h3 style="font-size: clamp(1.8rem, 3vw, 2.2rem); color: var(--text-main); margin: 10px 0;">WordPress Developer</h3>
-                        <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 15px;">HiddenIdol</p>
-                        <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; list-style-type: disc; padding-left: 20px;">
+                        <span class="exp-date">Dec 2023 &mdash; Jan 2024</span>
+                        <h3 class="exp-role">WordPress Developer</h3>
+                        <p class="exp-company">HiddenIdol</p>
+                        <ul class="exp-tasks">
                             <li>Transformed 3 core client sites into highly optimized platforms</li>
                             <li>Engineered custom plugins pushing WordPress limits</li>
                             <li>Boosted web vitals scoring dramatically</li>
@@ -150,27 +157,27 @@
         <!-- 5. Featured Project -->
         <section id="featured-project" class="section project-section">
             <div class="container">
-                <div class="split-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;">
+                <div class="split-layout">
                     
                     <!-- Left: Text Story -->
                     <div class="project-info reveal-item">
                         <p class="chapter-label">Featured Work</p>
-                        <h3 style="font-size: clamp(2.5rem, 4vw, 3.5rem); color: var(--text-main); line-height: 1.1; margin-bottom: 25px;">AI-Powered Satellite<br>Dashboard</h3>
+                        <h3 class="featured-project-title">AI-Powered Satellite Dashboard</h3>
 
-                        <p style="font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;">
-                            Built a real-time satellite tracking platform using TLE data and a 3D interface.
+                        <p class="project-desc">
+                            Built a real-time satellite tracking platform using TLE data and an interactive 3D interface.
                         </p>
 
-                        <div style="margin-bottom: 30px;">
-                            <h4 style="color: var(--text-main); font-size: 1.4rem; margin-bottom: 15px;">Key Features</h4>
-                            <ul style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; list-style: none; padding: 0;">
-                                <li style="margin-bottom: 10px;"><i class="fas fa-satellite" style="color: var(--accent); margin-right: 15px;"></i> Handling real-time satellite data streams.</li>
-                                <li style="margin-bottom: 10px;"><i class="fas fa-bolt" style="color: var(--accent); margin-right: 15px;"></i> Backend APIs with intelligent caching.</li>
-                                <li><i class="fas fa-robot" style="color: var(--accent); margin-right: 15px;"></i> AI assistant integrated with grounded data.</li>
+                        <div class="project-features-block">
+                            <h4 class="features-heading">Key Features</h4>
+                            <ul class="project-features-list">
+                                <li><i class="fas fa-satellite"></i> <span>Handling real-time satellite data streams.</span></li>
+                                <li><i class="fas fa-bolt"></i> <span>Backend APIs with intelligent caching.</span></li>
+                                <li><i class="fas fa-robot"></i> <span>AI assistant integrated with grounded data.</span></li>
                             </ul>
                         </div>
 
-                        <div class="tech-stack" style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 30px;">
+                        <div class="tech-stack">
                             <span class="badge">React</span>
                             <span class="badge">Node.js</span>
                             <span class="badge">Express</span>
@@ -178,16 +185,16 @@
                             <span class="badge">Ollama</span>
                         </div>
 
-                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                            <a href="https://github.com/harshada9270/Sat-LM" target="_blank" class="btn-primary">View Project <i class="fas fa-rocket" style="margin-left: 8px;"></i></a>
-                            <a href="https://github.com/harshada9270/Sat-LM" target="_blank" class="btn-secondary">GitHub <i class="fab fa-github" style="margin-left: 8px;"></i></a>
+                        <div class="project-btn-group">
+                            <a href="https://github.com/harshada9270/Sat-LM" target="_blank" rel="noopener noreferrer" class="btn-primary">View Project <i class="fas fa-rocket"></i></a>
+                            <a href="https://github.com/harshada9270/Sat-LM" target="_blank" rel="noopener noreferrer" class="btn-secondary">GitHub <i class="fab fa-github"></i></a>
                         </div>
                     </div>
                     
                     <!-- Right: Visual -->
                     <div class="project-visual reveal-item">
-                        <div class="glass" style="padding: 10px; border-radius: 20px;">
-                            <img src="SAT-Lm.png" alt="Sat-LM Project" style="width: 100%; border-radius: 12px; display: block; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                        <div class="glass visual-container">
+                            <img src="SAT-Lm.png" alt="Sat-LM Project Screenshot" class="project-image-preview">
                         </div>
                     </div>
 
@@ -195,7 +202,7 @@
             </div>
         </section>
 
-        <!-- 6. Secondary Projects (Lighter Animation) -->
+        <!-- 6. Secondary Projects -->
         <section id="other-projects" class="section projects-section">
             <div class="container staggered-reveal-container">
                 <div class="section-header text-center reveal-item">
@@ -203,24 +210,28 @@
                     <h2 class="section-title">Selected Projects</h2>
                 </div>
                 
-                <div class="projects-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; margin-top: 60px;">
+                <div class="projects-grid">
                     <!-- Carbon Footprint -->
-                    <div class="project-card reveal-item" style="border-radius: 24px; overflow: hidden; display: flex; flex-direction: column;">
-                        <img src="https://via.placeholder.com/600x300/1e293b/38bdf8?text=Carbon+Monitor" alt="Carbon Footprint Monitor" style="width: 100%; height: 240px; object-fit: cover; transition: transform 0.5s ease;">
-                        <div style="padding: 40px;">
-                            <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">Carbon Footprint Monitor</h3>
-                            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 25px;">Tracking and visualizing carbon footprints for environmental sustainability.</p>
-                            <a href="https://github.com/harshada9270" target="_blank" class="btn-secondary" style="padding: 10px 20px; font-size: 0.95rem;">GitHub <i class="fab fa-github"></i></a>
+                    <div class="project-card reveal-item">
+                        <div class="project-card-img-wrap">
+                            <img src="https://via.placeholder.com/600x300/1e293b/38bdf8?text=Carbon+Monitor" alt="Carbon Footprint Monitor" class="project-card-img">
+                        </div>
+                        <div class="project-card-content">
+                            <h3>Carbon Footprint Monitor</h3>
+                            <p>Tracking and visualizing carbon footprints for environmental sustainability.</p>
+                            <a href="https://github.com/harshada9270" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-card">GitHub <i class="fab fa-github"></i></a>
                         </div>
                     </div>
 
                     <!-- E-Commerce -->
-                    <div class="project-card reveal-item" style="border-radius: 24px; overflow: hidden; display: flex; flex-direction: column; transition-delay: 0.2s;">
-                        <img src="E-Commerce.png" alt="E-Commerce App" style="width: 100%; height: 240px; object-fit: cover; transition: transform 0.5s ease;">
-                        <div style="padding: 40px;">
-                            <h3 style="font-size: 1.8rem; color: var(--text-main); margin-bottom: 15px;">E-Commerce Platform</h3>
-                            <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 25px;">A full-featured online storefront with React and Node.js backend.</p>
-                            <a href="https://github.com/harshada9270" target="_blank" class="btn-secondary" style="padding: 10px 20px; font-size: 0.95rem;">GitHub <i class="fab fa-github"></i></a>
+                    <div class="project-card reveal-item">
+                        <div class="project-card-img-wrap">
+                            <img src="E-Commerce.png" alt="E-Commerce App Screenshot" class="project-card-img">
+                        </div>
+                        <div class="project-card-content">
+                            <h3>E-Commerce Platform</h3>
+                            <p>A full-featured online storefront with React and Node.js backend.</p>
+                            <a href="https://github.com/harshada9270" target="_blank" rel="noopener noreferrer" class="btn-secondary btn-card">GitHub <i class="fab fa-github"></i></a>
                         </div>
                     </div>
                 </div>
@@ -228,11 +239,11 @@
         </section>
 
         <!-- 7. Large Visual Moment -->
-        <section class="section text-center" style="min-height: 80vh; display: flex; align-items: center;">
+        <section class="section text-center visual-banner-section">
             <div class="container">
-                <h1 class="reveal-item" style="font-size: clamp(4rem, 8vw, 10rem); font-weight: 700; background: linear-gradient(135deg, #fff 20%, #38bdf8 80%); -webkit-background-clip: text; background-clip: text; color: transparent; line-height: 1.1; letter-spacing: -3px; text-shadow: 0 10px 40px rgba(56, 189, 248, 0.2);">
+                <h2 class="reveal-item visual-banner-heading">
                     Code.<br>Design.<br>Impact.
-                </h1>
+                </h2>
             </div>
         </section>
 
@@ -244,60 +255,69 @@
                     <h2 class="section-title">Achievements</h2>
                 </div>
                 
-                <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 70px;">
-                    <div class="stat-card reveal-item" style="padding: 40px; border-radius: 30px; background: rgba(255,255,255,0.02); text-align: center; border: 1px solid var(--glass-border);">
-                        <i class="fas fa-trophy fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
-                        <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 5px;">Smart India Hackathon</h3>
-                        <p style="color: var(--text-muted); font-size: 1.1rem;">Winner</p>
+                <div class="stats-grid">
+                    <div class="stat-card reveal-item">
+                        <div class="stat-icon-wrap">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Smart India Hackathon</h3>
+                        <p>Winner</p>
                     </div>
                     
-                    <div class="stat-card reveal-item" style="padding: 40px; border-radius: 30px; background: rgba(255,255,255,0.02); text-align: center; border: 1px solid var(--glass-border); transition-delay: 0.1s;">
-                        <i class="fas fa-brain fa-3x" style="color: var(--accent); margin-bottom: 20px; display: block;"></i>
-                        <div style="font-size: 3.5rem; color: var(--accent); line-height: 1; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700;"><span class="counter" data-target="100">0</span><span style="font-size: 2.5rem; color: var(--accent);">+</span></div>
-                        <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 5px;">DSA Problems Solved</h3>
+                    <div class="stat-card reveal-item">
+                        <div class="stat-icon-wrap">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="counter-display">
+                            <span class="counter" data-target="100">0</span>
+                            <span class="counter-plus">+</span>
+                        </div>
+                        <h3>DSA Problems Solved</h3>
                     </div>
                     
-                    <div class="stat-card reveal-item" style="padding: 40px; border-radius: 30px; background: rgba(255,255,255,0.02); text-align: center; border: 1px solid var(--glass-border); transition-delay: 0.2s;">
-                        <i class="fas fa-users-cog fa-3x" style="color: var(--accent); margin-bottom: 20px;"></i>
-                        <h3 style="font-size: 1.5rem; color: var(--text-main); margin-bottom: 5px;">Vice President</h3>
-                        <p style="color: var(--text-muted); font-size: 1.1rem;">Developers Club</p>
+                    <div class="stat-card reveal-item">
+                        <div class="stat-icon-wrap">
+                            <i class="fas fa-users-cog"></i>
+                        </div>
+                        <h3>Vice President</h3>
+                        <p>Developers Club</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 9. Final Impact Section -->
-        <section id="contact" class="section contact-section text-center" style="min-height: 90vh; display: flex; align-items: center;">
-            <div class="container reveal-item" style="max-width: 1000px;">
-                <h2 style="font-size: clamp(3.5rem, 8vw, 6rem); color: var(--text-main); font-weight: 700; margin-bottom: 20px; line-height: 1.1; letter-spacing: -2px;">Let's Build Something Amazing.</h2>
-                <p style="font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--text-muted); margin-bottom: 50px;">Open to opportunities and collaborations.</p>
-                <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap;">
-                    <a href="mailto:harshadakakade0918@gmail.com" class="btn-primary" style="font-size: 1.2rem; padding: 20px 40px; border-radius: 50px;"><i class="fas fa-envelope" style="margin-right: 10px;"></i> harshadakakade0918@gmail.com</a>
+        <section id="contact" class="section contact-section text-center">
+            <div class="container reveal-item contact-box">
+                <h2 class="contact-heading">Let's Build Something Amazing.</h2>
+                <p class="contact-subtitle">Open to opportunities and collaborations.</p>
+                <div class="contact-btn-wrap">
+                    <a href="mailto:harshadakakade0918@gmail.com" class="btn-primary contact-main-btn"><i class="fas fa-envelope"></i> <span>harshadakakade0918@gmail.com</span></a>
                 </div>
-                <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin-top: 50px;">
-                    <a href="https://github.com/harshada9270" target="_blank" rel="noopener noreferrer" class="contact-link" style="font-size: 1.5rem;"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="https://www.linkedin.com/in/harshada-kakade-854964281/" target="_blank" rel="noopener noreferrer" class="contact-link" style="font-size: 1.5rem;"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                <div class="contact-social-links">
+                    <a href="https://github.com/harshada9270" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://www.linkedin.com/in/harshada-kakade-854964281/" target="_blank" rel="noopener noreferrer" class="contact-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- 9. Footer -->
+    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-logo">Harshada<span>.</span></div>
-                <p>&copy; 2026 Harshada Ankush Kakade. Designed & Built with passion.</p>
+                <p>&copy; 2026 Harshada Ankush Kakade. Designed &amp; Built with passion.</p>
                 <div class="footer-socials">
-                    <a href="https://github.com/harshada9270" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://www.linkedin.com/in/harshada-kakade-854964281/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/harshada9270" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/harshada-kakade-854964281/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- Custom Cursor DOM -->
+    <!-- Custom Cursor DOM (for fine pointers only) -->
     <div class="cursor-dot"></div>
     <div class="cursor-outline"></div>
     <script src="script.js"></script>
